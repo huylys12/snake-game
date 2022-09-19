@@ -1,4 +1,4 @@
-from turtle import Screen
+from turtle import Screen, Turtle
 from snake import Snake
 from scorebard import ScoreBoard
 from food import Food
@@ -10,6 +10,23 @@ screen.bgcolor("black")
 screen.title("Snake Game")
 screen.tracer(0)
 
+
+def draw_outline():
+    drawer = Turtle()
+    drawer.hideturtle()
+    drawer.color("white")
+    drawer.pensize(10)
+    drawer.penup()
+    drawer.goto(-270, -250)
+    drawer.pendown()
+    for _ in range(2):
+        drawer.forward(540)
+        drawer.left(90)
+        drawer.forward(480)
+        drawer.left(90)
+
+
+draw_outline()
 snake = Snake()
 scoreboard = ScoreBoard()
 food = Food()
@@ -32,6 +49,14 @@ while game_is_on:
         scoreboard.increase_score()
         snake.extend()
         food.refresh()
+
+    # detect collision with wall
+    pos_head = snake.head.position()
+    if pos_head[1] <= -250 or pos_head[1] >= 230 or pos_head[0] <= -270 or pos_head[0] >= 270:
+        # game_is_on = False
+        time.sleep(1)
+        scoreboard.reset_game()
+        snake.reset()
 
     # detect collision with tail
     for seg in snake.segments[-1:1:-1]:
