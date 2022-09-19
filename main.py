@@ -1,5 +1,6 @@
 from turtle import Screen
 from snake import Snake
+from scorebard import ScoreBoard
 import time
 
 screen = Screen()
@@ -9,6 +10,8 @@ screen.title("Snake Game")
 screen.tracer(0)
 
 snake = Snake()
+scoreboard = ScoreBoard()
+
 
 screen.listen()
 screen.onkey(snake.turn_up, "Up")
